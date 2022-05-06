@@ -48,12 +48,20 @@ function generatePassword() {
       characterPool.push(specialCharacterArray);
       console.log(characterPool);
     }
+
+  randomizeArray();
+
+  return passwordLength;
+
 };
 
 //randomizing the characterpool array
 var randomizeArray = function(characterPool) {
-  var randomArrayIndex = Math.floor(Math.random(characterPool.passwordLength));
+  //
+  var randomArrayIndex = Math.floor(Math.random() * characterPool.passwordLength);
   console.log(randomArrayIndex);
+  var displayCharacters = characterPool.randomArrayIndex;
+  console.log(displayCharacters);
 };
 
 
