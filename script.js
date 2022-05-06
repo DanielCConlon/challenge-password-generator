@@ -1,6 +1,6 @@
 // Assignment code here
 
-//defining  all lower, upper, numeric, and special character types that will generate the password
+//defining  all lower, upper, numeric, and special character types that can generate the password
 var lowerCaseCharactersArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var upperCaseCharactersArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var numericCharactersArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -9,59 +9,59 @@ var specialCharacterArray = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
+var characterPool = []
+
+function generatePassword() {
+
+  //prompts user to put in at least 8 characters but no more than 128
+  var passwordLength = window.prompt("How many characters would you like your password to contain?");
+
+    //if input is less than 8 alert them it needs to be at least 8
+    if (passwordLength < 8 || passwordLength > 128 || isNaN(passwordLength))  {
+      window.alert("Password length must be a number between 8 and 128 characters");
+
+      generatePassword();
+    }
+
+    //prompting the user different character type options
+  var lowerCharacters = window.confirm("Do you want to include lowercase characters?");
+    if (lowerCharacters){
+      characterPool.push(lowerCaseCharactersArray);
+      console.log(characterPool);
+    }
+
+  var upperCharacters = window.confirm("Do you want to include uppercase characters?");
+    if (upperCharacters) {
+      characterPool.push(upperCaseCharactersArray);
+      console.log(characterPool);
+    }
+
+
+  var numericCharacters = window.confirm("Do you want to include numeric characters?");
+    if (numericCharacters) {
+      characterPool.push(numericCharactersArray);
+      console.log(characterPool);
+    }
+
+  var specialCharacters = window.confirm("Do you want to include special characters?");
+    if (specialCharacters) {
+      characterPool.push(specialCharacterArray);
+      console.log(characterPool);
+    }
+};
+
+//randomizing the characterpool array
+var randomizeArray = function(characterPool) {
+  var randomArrayIndex = Math.floor(Math.random(characterPool.passwordLength));
+  console.log(randomArrayIndex);
+};
+
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
-  passwordLength();
-  
-  passwordText.value = password;
-
 }
-
-var passwordLength = function() {
-  //prompts user to put in at least 8 characters but no more than 128
-  var getPasswordLength = window.prompt("How many characters would you like your password to contain?");
-
-  if (getPasswordLength < 8) {
-    window.alert("Password length must be at least 8 characters");
-  }
-  else if (getPasswordLength > 128) {
-    window.alert("Password length must be less than 128 characters");
-  }
-  else {
-    passwordLength();
-  }
-};
-
-var characterTypes = function() {
-  //prompting the user different character type options
-  var characterTypesLower = window.confirm("Do you want to include lowercase characters?");
-    if (characterTypesLower === true){
-      window.alert("Lowercase characters will be included.");
-    }
-    else {
-
-    }
-
-  var characterTypesUpper = window.confirm("Do you want to include uppercase characters?");
-    if (characterTypesUpper === true) {
-      window.alert("Uppercase characters will be included.")
-    }
-
-
-  var characterTypesNumeric = window.prompt("Do you want to include numeric characters?");
-    if (characterTypesNumeric === true) {
-      window.alert("Numeric characters will be included.")
-    }
-
-  var characterTypesSpecialCharacters = window.prompt("Do you want to include special characters?");
-  if (characterTypesSpecialCharacters === true) {
-    window.alert("Special characters will be included.")
-  }
-
-};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
