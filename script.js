@@ -11,6 +11,8 @@ var generateBtn = document.querySelector("#generate");
 
 var characterPool = []
 
+var displayPassword = []
+
 function generatePassword() {
 
   //prompts user to put in at least 8 characters but no more than 128
@@ -26,42 +28,53 @@ function generatePassword() {
     //prompting the user different character type options
   var lowerCharacters = window.confirm("Do you want to include lowercase characters?");
     if (lowerCharacters){
-      characterPool.push(lowerCaseCharactersArray);
-      console.log(characterPool);
+      characterPool = characterPool.concat(lowerCaseCharactersArray);
     }
 
   var upperCharacters = window.confirm("Do you want to include uppercase characters?");
     if (upperCharacters) {
-      characterPool.push(upperCaseCharactersArray);
-      console.log(characterPool);
+      characterPool = characterPool.concat(upperCaseCharactersArray);
     }
 
 
   var numericCharacters = window.confirm("Do you want to include numeric characters?");
     if (numericCharacters) {
-      characterPool.push(numericCharactersArray);
-      console.log(characterPool);
+      characterPool = characterPool.concat(numericCharactersArray);
     }
 
   var specialCharacters = window.confirm("Do you want to include special characters?");
     if (specialCharacters) {
-      characterPool.push(specialCharacterArray);
-      console.log(characterPool);
+      characterPool = characterPool.concat(specialCharacterArray);
     }
 
-  randomizeArray();
+  for (i = 0; i < passwordLength; i++) {
+    var selectedCharacter = randomizeArray(characterPool);
 
-  return passwordLength;
+    displayPassword.push(selectedCharacter);
+    
+  }
+
+  //turn displayPassword array into a string
+  var displayPasswordString = displayPassword.join('');
+  
+
+  //return displayPasswordString to be called in writePassword function
+  return displayPasswordString;
 
 };
 
 //randomizing the characterpool array
-var randomizeArray = function(characterPool) {
-  //
-  var randomArrayIndex = Math.floor(Math.random() * characterPool.passwordLength);
-  console.log(randomArrayIndex);
-  var displayCharacters = characterPool.randomArrayIndex;
-  console.log(displayCharacters);
+var randomizeArray = function(characterArray) {
+  //to grab a random index from the array
+  var randomArrayIndex = Math.floor(Math.random() * characterArray.length);
+  
+
+  //displayCharacter is locating a particlar item in the array based on the index
+  var displayCharacter = characterArray[randomArrayIndex];
+  
+
+  //return the displayCharacter variable so the value can be used in generate password function
+  return displayCharacter;
 };
 
 
@@ -69,6 +82,9 @@ var randomizeArray = function(characterPool) {
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
+
+  //using dom to show password onto the screen
+  passwordText.textContent = password;
 }
 
 // Add event listener to generate button
